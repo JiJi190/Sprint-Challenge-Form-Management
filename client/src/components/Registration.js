@@ -2,11 +2,17 @@ import React from 'react';
 import formik, { withFormik } from 'formik'
 import * as yup from 'yup'
 
-const Registration = () => {
+const Registration = ({ errors, touched }) => {
     return(
         <Form>
-            <Field type="text" name="username" placeholder="Username" />
-            <Field type="password" name="password" placeholder="Password" />
+            <div>
+                {touched.username && errors.username && <p>{errors.email}</p>}
+                <Field type="text" name="username" placeholder="Username" />
+            </div>
+            <div>
+                {touched.password && errors.password && <p>{errors.password}</p>}
+                <Field type="password" name="password" placeholder="Password" />
+            </div>
             <button>Submit!</button>
         </Form>
     )
@@ -22,10 +28,10 @@ const FormikRegForm = withFormik({
 
     validationSchema: yup.object().shape({
         username: yup.string()
-            .required(),
+            .required("Username is required"),
         password: yup.string()
-            .min(6)
-            .required()
+            .min(6, "Password must be at least 6 characters")
+            .required("Password is required")
     }),
 
     handleSubmit(values) {
