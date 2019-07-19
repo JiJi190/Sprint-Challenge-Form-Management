@@ -1,6 +1,7 @@
 import React from 'react';
-import formik, { withFormik } from 'formik'
+import { withFormik, Form, Field } from 'formik'
 import * as yup from 'yup'
+import {axiosWithAuth} from './axiosWithAuth'
 
 const Registration = ({ errors, touched }) => {
     return(
@@ -34,8 +35,19 @@ const FormikRegForm = withFormik({
             .required("Password is required")
     }),
 
-    handleSubmit(values) {
-        console.log(values)
+    handleSubmit(values, {resetForm, setErrors, setSubmitting, ...props}) {
+        if (values.username === "blairreynolds") {
+            setErrors({username: "Username Taken"})
+        }
+        else {
+            axiosWithAuth()
+                .post("http://localhost:5000/api/register", values)
+                .then(res => {
+                    console.log('post success')
+                    localStorage.setItem("token", res.data.token)
+                    props.props.history.push("/data")
+                })
+        }
     }
 
 })(Registration);
