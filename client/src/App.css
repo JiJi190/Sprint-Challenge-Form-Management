@@ -31,3 +31,13 @@
     transform: rotate(360deg);
   }
 }
+
+.data {
+  border: 1px solid grey;
+  background-color: #282c34;
+  color: white;
+}
+
+.data h4 {
+  word-spacing: 1.2em;
+}

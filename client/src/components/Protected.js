@@ -18,10 +18,11 @@ const Protected = () => {
         <>
             
             {data ? (data.map(recipe => 
-            <div>
+            <div className="data">
                 <h2>{recipe.name}</h2>
                 <h3>{recipe.course}</h3>
                 <h3>{recipe.technique}</h3>
+                <h4>{recipe.ingredients}</h4>
             </div>
             )
             ):(
